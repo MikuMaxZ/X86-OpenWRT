@@ -10,5 +10,4 @@ src-git small https://github.com/kenzok8/small
 src-git kenzo https://github.com/kenzok8/openwrt-packages
 src-git helloworld https://github.com/fw876/helloworld
 src-git passwall https://github.com/xiaorouji/openwrt-passwall
-src-git jerryk https://github.com/jerrykuku/openwrt-package
 src-git netspeedtest  https://github.com/sirpdboy/netspeedtest
