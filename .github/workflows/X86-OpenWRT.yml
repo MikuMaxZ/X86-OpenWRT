@@ -17,21 +17,16 @@ jobs:
     name: Build my artifact
     runs-on: ubuntu-latest
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
           root-reserve-mb: 512
           swap-size-mb: 1024
           remove-dotnet: 'true'
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Build
-        run: |
-          echo "Free space:"
-          df -h
+    - name: Checkout
+      uses: actions/checkout@v2
           
-      - name: Initialization environment
+    - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
