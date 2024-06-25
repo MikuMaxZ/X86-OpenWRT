@@ -42,12 +42,12 @@ jobs:
         run: |
           cd lede
           make menuconfig
-
+          
           # 在这里可以手动配置 OpenWrt，选择目标硬件平台、需要的软件包等
 
       - name: Compile OpenWrt
         run: |
-          cd openwrt
+          cd lede
           make -j$(nproc)
 
       - name: Package Firmware
