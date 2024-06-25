@@ -48,9 +48,12 @@ jobs:
           ./scripts/feeds install -a
 
       - name: Configure OpenWrt
+        env:
+          CONFIG_FILE: '.config'
         run: |
+          [ -e $CONFIG_FILE ] && mv $CONFIG_FILE lede/.config
           cd lede
-          make menuconfig
+          make defconfig
           
           # 在这里可以手动配置 OpenWrt，选择目标硬件平台、需要的软件包等
 
