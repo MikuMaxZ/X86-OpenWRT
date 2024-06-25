@@ -60,7 +60,8 @@ jobs:
       - name: Compile OpenWrt
         run: |
           cd lede
-          make -j$(nproc)
+          make download -j8
+          make V=s -j$(nproc)
 
       - name: Package Firmware
         run: |
