@@ -66,20 +66,19 @@ jobs:
         ./scripts/feeds install -a
 
     - name: 按上传的配置文件进行编译
-        env:
-          CONFIG_FILE: '.config'
-        run: |
-          [ -e $CONFIG_FILE ] && mv $CONFIG_FILE lede/.config
-          cd lede
-          make defconfig
-          
-          # 在这里可以手动配置 OpenWrt，选择目标硬件平台、需要的软件包等
+      env:
+        CONFIG_FILE: '.config'
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE lede/.config
+        cd lede
+        make defconfig
+
 
     - name: 开始编译
-        run: |
-          cd lede
-          make download -j8
-          make V=s -j1
+      run: |
+        cd lede
+        make download -j8
+        make V=s -j1
 
     - name: 发布固件至Release
       uses: softprops/action-gh-release@master
