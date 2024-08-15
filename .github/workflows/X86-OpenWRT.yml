@@ -46,7 +46,7 @@ jobs:
         large-packages: false
         swap-storage: false
         
-     - name: Download source code    
+    - name: Download source code    
        run: |
         git clone https://github.com/coolsnowwolf/lede
         cd lede
@@ -67,7 +67,7 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-      - name: Configure OpenWrt
+    - name: Configure OpenWrt
         env:
           CONFIG_FILE: '.config'
         run: |
@@ -77,21 +77,24 @@ jobs:
           
           # 在这里可以手动配置 OpenWrt，选择目标硬件平台、需要的软件包等
 
-      - name: Compile OpenWrt
+    - name: Compile OpenWrt
         run: |
           cd lede
           make download -j8
           make V=s -j1
 
-      - name: Package Firmware
+    - name: Package Firmware
         run: |
           cd openwrt/bin/targets/*/*
           # 这里可以添加组织文件、生成固件的步骤，例如压缩、生成 SHA256 校验和等操作
 
-      - name: Upload Firmware
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: openwrt/bin/targets/*/*.zip  # 替换为实际的固件文件路径
-          asset_name: openwrt-firmware.zip  # 替换为实际的固件文件名
-          asset_content_type: application/zip
+    - name: 发布固件至Release
+      uses: softprops/action-gh-release@master
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: ${{ env.FIRMWARE }}/*
+        name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.UPLOAD_TAG_NAME }}-${{ env.EMMC_MHZ }}${{ env.EEPROM }}${{ env.WIFI_INTERFACE }}${{ env.BUILD_DOCKERMAN }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
