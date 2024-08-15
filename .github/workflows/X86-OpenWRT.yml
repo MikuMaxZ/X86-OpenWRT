@@ -1,11 +1,9 @@
-name: Compile OpenWrt
+name: Build OpenWrt
 
 on:
-  push:
-    branches:
-      - main  # 当 main 分支有推送时触发
   schedule:
-  - cron: '0 0 * * *'  # 每天 UTC 时间 00:00 触发编译任务，可以根据需要调整
+    - cron: "0 0 * * 5"
+  workflow_dispatch:
 
 env:
   SSH_ACTIONS: false
