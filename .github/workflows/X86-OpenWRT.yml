@@ -45,22 +45,19 @@ jobs:
         haskell: false
         large-packages: false
         swap-storage: false
-        
-    - name: Download source code    
-    
+
+    - name: 开始编译
+      run: |
         git clone https://github.com/coolsnowwolf/lede
-        
         cd lede
-          
         echo "src-git small https://github.com/kenzok8/small" >> "feeds.conf.default"
         echo "src-git kenzo https://github.com/kenzok8/openwrt-packages" >> "feeds.conf.default"
         echo "src-git helloworld https://github.com/fw876/helloworld" >> "feeds.conf.default"
         echo "src-git netspeedtest  https://github.com/sirpdboy/netspeedtest" >> "feeds.conf.default"
         echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
         echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
-          
         git clone https://github.com/esirplayground/luci-app-poweroff package/lean/luci-app-poweroff
-          
+        
         # 如果需要选择特定分支，可以使用以下命令
         # git checkout <branch_name>
 
@@ -68,7 +65,7 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-    - name: Configure OpenWrt
+    - name: 按上传的配置文件进行编译
         env:
           CONFIG_FILE: '.config'
         run: |
@@ -78,16 +75,11 @@ jobs:
           
           # 在这里可以手动配置 OpenWrt，选择目标硬件平台、需要的软件包等
 
-    - name: Compile OpenWrt
+    - name: 开始编译
         run: |
           cd lede
           make download -j8
           make V=s -j1
-
-    - name: Package Firmware
-        run: |
-          cd openwrt/bin/targets/*/*
-          # 这里可以添加组织文件、生成固件的步骤，例如压缩、生成 SHA256 校验和等操作
 
     - name: 发布固件至Release
       uses: softprops/action-gh-release@master
