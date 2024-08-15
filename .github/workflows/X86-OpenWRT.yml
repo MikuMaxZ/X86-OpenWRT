@@ -47,8 +47,9 @@ jobs:
         swap-storage: false
         
     - name: Download source code    
-       run: |
+    
         git clone https://github.com/coolsnowwolf/lede
+        
         cd lede
           
         echo "src-git small https://github.com/kenzok8/small" >> "feeds.conf.default"
