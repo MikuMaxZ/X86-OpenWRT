@@ -50,7 +50,7 @@ jobs:
         large-packages: false
         swap-storage: false
 
-    - name: 开始编译
+    - name: 下载源码和更新feed
       run: |
         git clone https://github.com/coolsnowwolf/lede
         cd lede
