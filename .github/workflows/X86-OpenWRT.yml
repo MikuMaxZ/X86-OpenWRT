@@ -82,7 +82,7 @@ jobs:
       run: |
         cd lede
         make download -j8
-        make V=s -j$(nproc)
+        make V=s -j1
 
     - name: 发布固件至Release
       uses: softprops/action-gh-release@master
