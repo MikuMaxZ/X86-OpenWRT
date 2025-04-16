@@ -60,6 +60,7 @@ jobs:
         echo "src-git netspeedtest  https://github.com/sirpdboy/netspeedtest" >> "feeds.conf.default"
         echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
         echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
+        echo "src-git old https://github.com/coolsnowwolf/luci.git" >> "feeds.conf.default"
         git clone https://github.com/esirplayground/luci-app-poweroff package/lean/luci-app-poweroff
         
         # 如果需要选择特定分支，可以使用以下命令
